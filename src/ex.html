@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>郭旭东 - 个人简历</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'midnight': '#121E34',
+                        'midnight-light': '#1E3A5F',
+                        'aurora': '#3A9FEE',
+                        'aurora-green': '#00E5A0',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #121E34 0%, #1E3A5F 100%);
+            background-attachment: fixed;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3A9FEE 0%, #00E5A0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-shadow {
+            text-shadow: 0 2px 10px rgba(58, 159, 238, 0.5);
+        }
+
+        .card-bg {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .glass-bg {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+        }
+
+        .aurora-border {
+            border-color: rgba(58, 159, 238, 0.5);
+            box-shadow: 0 0 20px rgba(58, 159, 238, 0.3);
+        }
+
+        .particle {
+            position: fixed;
+            background: rgba(58, 159, 238, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #3A9FEE 0%, #00E5A0 100%);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: calc(1rem - 6px);
+            top: 1.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            border: 2px solid #121E34;
+        }
+
+        .timeline-dot-blue {
+            background: #3A9FEE;
+        }
+
+        .timeline-dot-green {
+            background: #00E5A0;
+        }
+
+        .skill-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #3A9FEE 0%, #00E5A0 100%);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 1.5s ease-in-out;
+        }
+
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 0.5rem;
+            }
+            .timeline-dot {
+                left: calc(0.5rem - 6px);
+            }
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen">
+    <!-- 导航栏 -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 glass-bg border-b border-white/8 py-3 transition-all duration-300">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex items-center justify-between">
+                <div class="text-xl font-bold gradient-text">郭旭东</div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#about" class="text-text-secondary hover:text-aurora transition-colors">关于我</a>
+                    <a href="#education" class="text-text-secondary hover:text-aurora transition-colors">教育经历</a>
+                    <a href="#skills" class="text-text-secondary hover:text-aurora transition-colors">专业技能</a>
+                    <a href="#internship" class="text-text-secondary hover:text-aurora transition-colors">实习经历</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-aurora">
+                    <i class="fa fa-bars text-2xl"></i>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 space-y-2">
+                <a href="#about" class="block text-text-secondary hover:text-aurora transition-colors">关于我</a>
+                <a href="#education" class="block text-text-secondary hover:text-aurora transition-colors">教育经历</a>
+                <a href="#skills" class="block text-text-secondary hover:text-aurora transition-colors">专业技能</a>
+                <a href="#internship" class="block text-text-secondary hover:text-aurora transition-colors">实习经历</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 粒子背景 -->
+    <div id="particles"></div>
+
+    <!-- 主要内容 -->
+    <main class="pt-20">
+        <!-- 个人信息 -->
+        <section id="about" class="container mx-auto px-4 md:px-8 py-12 mb-20 section-fade-in">
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                <div class="relative">
+                    <img src="https://via.placeholder.com/256" alt="头像" class="w-48 h-48 md:w-64 md:h-64 rounded-full border-2 border-aurora/30 aurora-border animate-float">
+                    <div class="absolute bottom-4 right-4 bg-aurora text-midnight px-3 py-1 rounded-full text-sm font-semibold animate-pulse-slow">
+                        求职中
+                    </div>
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 gradient-text text-shadow" style="font-size: clamp(2rem, 5vw, 3rem);">
+                        郭旭东
+                    </h1>
+                    <p class="text-xl md:text-2xl text-aurora mb-6">
+                        数字媒体技术 · 本科
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-calendar text-aurora text-xl"></i>
+                            <span class="text-text-secondary">2002年</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-phone text-aurora text-xl"></i>
+                            <a href="tel:15938194080" class="text-text-secondary hover:text-aurora transition-colors">15938194080</a>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-envelope text-aurora text-xl"></i>
+                            <a href="mailto:2421656763@qq.com" class="text-text-secondary hover:text-aurora transition-colors">2421656763@qq.com</a>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-graduation-cap text-aurora text-xl"></i>
+                            <span class="text-text-secondary">江南大学 · 数字媒体技术</span>
+                        </div>
+                    </div>
+                    <p class="text-text-secondary leading-relaxed">
+                        专注于AI产品领域，熟悉产品经理从需求分析到方案落地的完整流程，能将业务需求拆解为清晰的产品方案。具备AI智能体Workflow设计、Prompt工程、知识库构建等实践经验，致力于通过AI技术解决实际业务问题。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 教育经历 -->
+        <section id="education" class="container mx-auto px-4 md:px-8 py-12 mb-20 section-fade-in">
+            <h2 class="text-3xl font-bold mb-12 text-center">教育经历</h2>
+            <div class="relative">
+                <div class="timeline-line"></div>
+                <div class="space-y-6">
+                    <div class="relative pl-12 md:pl-16">
+                        <div class="timeline-dot timeline-dot-blue"></div>
+                        <div class="card-bg border border-white/8 rounded-xl p-6 hover:aurora-border transition-all duration-300">
+                            <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                                <h3 class="text-xl font-bold mb-2">江南大学</h3>
+                                <span class="text-aurora text-sm md:text-base">2022-2026</span>
+                            </div>
+                            <p class="text-text-secondary mb-4">数字媒体技术 · 本科</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider text-text-secondary mb-2">相关课程</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm">C / C++</span>
+                                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Python</span>
+                                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm">数据结构</span>
+                                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm">数据库原理</span>
+                                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm">操作系统</span>
+                                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm">计算机网络</span>
+                                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm">人工智能</span>
+                                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm">机器学习</span>
+                                        <span class="px-3 py-1 bg-white/10 rounded-full text-sm">互动媒体技术</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm uppercase tracking-wider text-text-secondary mb-2">毕业设计</h4>
+                                    <span class="px-3 py-1 bg-white/10 rounded-full text-sm">基于语言模型的辅助问答系统</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 专业技能 -->
+        <section id="skills" class="container mx-auto px-4 md:px-8 py-12 mb-20 section-fade-in">
+            <h2 class="text-3xl font-bold mb-12 text-center">专业技能</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 核心能力 -->
+                <div class="card-bg border border-white/8 rounded-xl p-6 hover:aurora-border transition-all duration-300">
+                    <h3 class="text-xl font-bold mb-6">核心能力</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-text-primary">产品设计</span>
+                                <span class="text-aurora font-semibold">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-text-primary">AI应用</span>
+                                <span class="text-aurora font-semibold">88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="88"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-text-primary">需求分析</span>
+                                <span class="text-aurora font-semibold">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-text-primary">方案设计</span>
+                                <span class="text-aurora font-semibold">87%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="87"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-text-primary">技术理解</span>
+                                <span class="text-aurora font-semibold">83%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="83"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 工具栈 -->
+                <div class="card-bg border border-white/8 rounded-xl p-6 hover:aurora-border transition-all duration-300">
+                    <h3 class="text-xl font-bold mb-6">工具栈</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-cube text-aurora text-xl"></i>
+                            <span>Dify</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-cogs text-aurora text-xl"></i>
+                            <span>Coze</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-paint-brush text-aurora text-xl"></i>
+                            <span>Figma</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-mobile text-aurora text-xl"></i>
+                            <span>墨刀</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-table text-aurora text-xl"></i>
+                            <span>Excel</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-sitemap text-aurora text-xl"></i>
+                            <span>Xmind</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa fa-code text-aurora text-xl"></i>
+                            <span>Cursor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 实习经历 -->
+        <section id="internship" class="container mx-auto px-4 md:px-8 py-12 mb-20 section-fade-in">
+            <h2 class="text-3xl font-bold mb-12 text-center">实习经历</h2>
+            <div class="relative">
+                <div class="timeline-line"></div>
+                <div class="space-y-6">
+                    <!-- 实习经历1 -->
+                    <div class="relative pl-12 md:pl-16">
+                        <div class="timeline-dot timeline-dot-green"></div>
+                        <div class="card-bg border border-white/8 rounded-xl p-6 hover:aurora-border transition-all duration-300">
+                            <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                                <div>
+                                    <h3 class="text-xl font-bold mb-2">杭州环际云计算有限公司</h3>
+                                    <p class="text-text-secondary">AI智能体实习生</p>
+                                </div>
+                                <span class="text-aurora-green text-sm md:text-base mt-2 md:mt-0">2025.09-2025.12</span>
+                            </div>
+                            <div class="space-y-2 mt-4">
+                                <p><strong>背景</strong>：基于自研低代码 AI 智能体平台 FastGPT，为企业客户提供智能体 Workflow 定制与解决方案服务。</p>
+                                <p><strong>岗位职责</strong>：对接商务与客户，梳理业务流程与核心问题，并转化为可落地的智能体方案，参与 POC 设计与交付。</p>
+                                <div>
+                                    <p class="font-bold mb-2">计件报工：</p>
+                                    <ul class="space-y-2 ml-4">
+                                        <li class="text-aurora-green">针对传统生产报工依赖人工系统操作、流程复杂问题，设计报工OA助手，实现移动端自然语言报工与自动入库；</li>
+                                        <li class="text-aurora-green">参与报工业务流程梳理，设计提取-校验-追问-存证的工作流；</li>
+                                        <li class="text-aurora-green">设计异常分支与多轮追问的数据校验机制，在模拟业务数据场景下构造完整与异常报工样本，设计校验机制评估框架，优化异常数据识别召回率，避免错误入库风险。</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="font-bold mb-2">智能派工：</p>
+                                    <ul class="space-y-2 ml-4">
+                                        <li class="text-aurora-green">针对人工派工模式中存在的效率低、资源匹配不精准、响应速度慢等问题，通过实时分析工单需求（地理位置等）、可用人员状态（交通配置、人员位置等），自动选取最优的派工对象进行决策推荐；</li>
+                                        <li class="text-aurora-green">基于费用优先、距离其次，设计"候选集筛选 + 多因子量化 + 规则排序"三阶段决策流程；</li>
+                                        <li class="text-aurora-green">对规则边界场景下可能出现的推荐波动问题，设计结构化排序输出和人工确认，增强可解释性和透明度。</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 实习经历2 -->
+                    <div class="relative pl-12 md:pl-16">
+                        <div class="timeline-dot timeline-dot-green"></div>
+                        <div class="card-bg border border-white/8 rounded-xl p-6 hover:aurora-border transition-all duration-300">
+                            <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                                <div>
+                                    <h3 class="text-xl font-bold mb-2">杭州同余信息科技有限公司</h3>
+                                    <p class="text-text-secondary">AI产品经理实习生</p>
+                                </div>
+                                <span class="text-aurora-green text-sm md:text-base mt-2 md:mt-0">2025.07-2025.08</span>
+                            </div>
+                            <div class="space-y-2 mt-4">
+                                <p><strong>背景</strong>：以 POC 验证为目标的 AI 能力探索项目，面向场外衍生品交易后台系统，利用AI提取合同信息字段并录入系统。</p>
+                                <p><strong>需求分析与架构设计</strong>：梳理场外衍生品交易合同与后台系统的复杂字段映射关系，基于 Dify 搭建 RAG（检索增强生成）工作流；设计针对关键字段的知识库索引机制，通过小样本评测将字段提取准确率提升至 90%；</p>
+                                <p><strong>成本收益分析</strong>：在不投入垂直训练成本下，金融交易下对数据零误差的严苛要求，剩余 5%-10% 的长尾错误导致业务人员信任度不足，迫使操作流程退化为"全量人工复核"，无法得到正向ROI。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="container mx-auto px-4 md:px-8 py-8 border-t border-white/8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-text-secondary text-sm">
+                © 2025 郭旭东. 保留所有权利。
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="text-text-secondary hover:text-aurora transition-colors" title="GitHub">
+                    <i class="fa fa-github text-2xl"></i>
+                </a>
+                <a href="#" class="text-text-secondary hover:text-aurora transition-colors" title="LinkedIn">
+                    <i class="fa fa-linkedin text-2xl"></i>
+                </a>
+                <a href="mailto:2421656763@qq.com" class="text-text-secondary hover:text-aurora transition-colors" title="邮箱">
+                    <i class="fa fa-envelope text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 bg-aurora/20 border border-aurora rounded-full flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-aurora/30 z-40">
+        <i class="fa fa-arrow-up text-aurora"></i>
+    </button>
+
+    <script>
+        // 粒子背景创建
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 40;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 随机大小 (1-4px)
+                const size = Math.random() * 3 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // 随机位置
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                // 随机延迟和持续时间
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 10;
+                particle.style.animationDelay = delay + 's';
+                particle.style.animationDuration = duration + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // 滚动动画处理
+        function handleScrollAnimations() {
+            const sections = document.querySelectorAll('.section-fade-in');
+            const skillBars = document.querySelectorAll('.skill-progress');
+            let skillsAnimated = false;
+
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: '0px'
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // 技能条动画
+            const skillsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !skillsAnimated) {
+                        skillsAnimated = true;
+                        skillBars.forEach(bar => {
+                            const width = bar.getAttribute('data-width');
+                            setTimeout(() => {
+                                bar.style.width = width + '%';
+                            }, 100);
+                        });
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            const skillsSection = document.getElementById('skills');
+            if (skillsSection) {
+                skillsObserver.observe(skillsSection);
+            }
+        }
+
+        // 导航栏滚动效果
+        function handleNavbarScroll() {
+            const navbar = document.getElementById('navbar');
+            let lastScroll = 0;
+
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+
+                if (currentScroll > 50) {
+                    navbar.classList.remove('py-3');
+                    navbar.classList.add('py-2', 'shadow-lg');
+                } else {
+                    navbar.classList.remove('py-2', 'shadow-lg');
+                    navbar.classList.add('py-3');
+                }
+
+                lastScroll = currentScroll;
+            });
+        }
+
+        // 移动端菜单切换
+        function handleMobileMenu() {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuLinks = mobileMenu.querySelectorAll('a');
+
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        // 平滑滚动
+        function handleSmoothScroll() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href === '#') return;
+                    
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        const offsetTop = target.offsetTop - 80; // 考虑导航栏高度
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // 返回顶部功能
+        function handleBackToTop() {
+            const backToTopBtn = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.remove('opacity-0', 'invisible');
+                    backToTopBtn.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopBtn.classList.remove('opacity-100', 'visible');
+                    backToTopBtn.classList.add('opacity-0', 'invisible');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            handleScrollAnimations();
+            handleNavbarScroll();
+            handleMobileMenu();
+            handleSmoothScroll();
+            handleBackToTop();
+        });
+    </script>
+</body>
+</html>
